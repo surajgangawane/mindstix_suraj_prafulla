@@ -1,0 +1,32 @@
+/*
+Write a program that uses console.log to print all the numbers from 1 to 100, with two exceptions. For numbers divisible by 3, print "Fizz" instead of the number, and for numbers divisible by 5 (and not 3), print "Buzz" instead.
+When you have that working, modify your program to print "FizzBuzz", for numbers that are divisible by both 3 and 5 (and still print "Fizz" or "Buzz" for numbers divisible by only one of those).
+*/
+
+//declaration of variables.
+var i;
+
+//looping from 1 to 100
+for(i = 1; i<=100; i++)
+{
+  //checking whether the number is divisible by 3 AND 5
+  if(i % 3 == 0 && i % 5 == 0)
+  {
+    console.log("FizzBuzz");
+  }
+  //checking whether the number is divisible only by 3
+  else if(i % 3 == 0)
+  {
+    console.log("Fizz");
+  }
+  //checking whether the number is divisible only by 5 and NOT by 3
+  else if(i % 5 == 0 && i % 3 != 0)
+  {
+    console.log("Buzz");
+  }
+  //rest of numbers
+  else
+  {
+    console.log(i);
+  }
+}
