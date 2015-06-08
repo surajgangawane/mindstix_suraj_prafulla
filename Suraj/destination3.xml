@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<student>
+	<mystudnt>
+		<Id>3</Id>
+		<Firstname>Shubham</Firstname>
+		<Lastname>Ghodke</Lastname>
+		<Score>565</Score>
+	</mystudnt>
+	<mystudnt>
+		<Id>2</Id>
+		<Firstname>Sourabh</Firstname>
+		<Lastname>Bodke</Lastname>
+		<Score>555</Score>
+	</mystudnt>
+	<mystudnt>
+		<Id>1</Id>
+		<Firstname>Suraj</Firstname>
+		<Lastname>Gangawane</Lastname>
+		<Score>545</Score>
+	</mystudnt>
+</student>
