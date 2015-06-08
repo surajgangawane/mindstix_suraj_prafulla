@@ -1,104 +1,155 @@
+// this code is
+// 1. Indented
+// 2. Properly Commented
+// 3. Modularized
+// 4. Validated, checking whether JSON file exists or not
+
 //importing i/o file system
 var fs = require("fs");
 
 //importing js2xmlparse to convert JSON into xml
 var js2xmlparser = require("js2xmlparser");
 
+var jsonData;
+var len;
 
-/*
-reading json
-*/
-var jsonData = JSON.parse(fs.readFileSync("student.json")); // parsing json object into javascript
-var i = 0; // used as a loop counter
-var len = jsonData.students.length; // calculating the length of student array here
-console.log("Initially, JSON Object contains : ");
-for(i = 0; i<len; i++)
+try
 {
-	console.log(jsonData.students[i].Id + " " + jsonData.students[i].Firstname + " " + jsonData.students[i].Lastname + " " + jsonData.students[i].Score);
+    stats = fs.lstatSync('student1.json');
+    if (stats.isFile())
+    {
+        readJSON();
+
+		printLine();
+		console.log("Initially, JSON Object contains : ");
+		printJSON();
+		printLine();
+
+		console.log("Writing JSON's data to textfile...");
+		writeRTF();
+		printLine();
+
+		console.log("After Writing, textfile File Contains : ");
+		printRTF();
+		printLine();
+
+		console.log("Now, sorting the json object.");
+		sortJSON();
+		printLine();
+
+		console.log("Sorted JSON Obejct : ");
+		printJSON();
+		printLine();
+
+		console.log("Writing sorted JSON object to textfile...");
+		writeRTF();
+		printLine();
+
+		console.log("Now, text file contains sorted elements as follows : ");
+		printRTF();
+		printLine();
+
+		console.log("Now, Converting the sorted JSON Object to XML : ");
+		printLine();
+		convertJSON_TO_XML();
+		console.log("JSON object sucessfully converted to XML.");
+		printLine();
+
+    }    
 }
-console.log("----------------------------------------------------------------");
-
-
-/*
-writing it to destination.rtf
-*/
-console.log("Writing JSON's data to text file...");
-var rtfData = ""; // used to store data from textfile
-var tempSTR = "Id  |  Firstname  |  Lastname  |  Score";
-fs.writeFileSync("destination.rtf", tempSTR); // writing the labels as a static string
-for(i = 0; i < len; i++) // writing the json data to textfile using this loop
-{
-	rtfData = fs.readFileSync("destination.rtf");
-	fs.writeFileSync("destination.rtf", rtfData + "\n" + jsonData.students[i].Id + "  |  " + jsonData.students[i].Firstname + "  |  " + jsonData.students[i].Lastname + "  |  " + jsonData.students[i].Score);
+catch (e) {
+    console.log("Sorry, JSON Object file does not exists.");
 }
-console.log("----------------------------------------------------------------");
-
-
-/*
-Printing the final contents of file
-*/
-var finalRtfData = fs.readFileSync("destination.rtf");
-console.log("After Writing, RTF File Contains : \n" + finalRtfData);
-console.log("----------------------------------------------------------------");
 
 
 
-/*
-sorting the data
-*/
-console.log("Now, sorting the json object.");
-console.log("----------------------------------------------------------------");
-console.log("Sorted JSON Obejct : ");
-var j; // used as an inner loop counter
-var tempObj;
-for(i = 0; i < (len - 1); i++)
+function printLine()
 {
-	for(j = (i+1); j < len; j++)
+	console.log("----------------------------------------------------------------");
+}
+
+function readJSON()
+{
+	/* 
+	reading json
+	*/
+	jsonData = JSON.parse(fs.readFileSync("student.json")); // parsing json object into javascript
+}
+
+function printJSON()
+{
+	len = jsonData.students.length; // calculating the length of student array here
+	for(var i = 0; i<len; i++)
 	{
-		if(jsonData.students[i].Score < jsonData.students[j].Score)
-		{
-			// swapping the json object to sort in descending order
-			tempObj = jsonData.students[i];
-			jsonData.students[i] = jsonData.students[j];
-			jsonData.students[j] = tempObj;
-		}
+		console.log(jsonData.students[i].Id + " " + jsonData.students[i].Firstname + " " + jsonData.students[i].Lastname + " " + jsonData.students[i].Score);
 	}
 }
-for(i = 0; i<len; i++)
+
+function writeRTF()
 {
-	console.log(jsonData.students[i].Id + " " + jsonData.students[i].Firstname + " " + jsonData.students[i].Lastname + " " + jsonData.students[i].Score);
+	/*
+	writing it to destination.rtf
+	*/
+	var headerStr = "Id  |  Firstname  |  Lastname  |  Score";
+	// fs.writeFileSync("destination.rtf", headerStr); // writing the header as a static string
+	// for(i = 0; i < len; i++) // writing the json data to textfile using this loop
+	// {
+		//rtfData = fs.readFileSync("destination.rtf");
+		//fs.writeFileSync("destination.rtf", rtfData + "\n" + jsonData.students[i].Id + "  |  " + jsonData.students[i].Firstname + "  |  " + jsonData.students[i].Lastname + "  |  " + jsonData.students[i].Score);
+	//}
+
+	// instead of reading-writing circle, just appending data to the destination file using following code
+	fs.writeFileSync("destination.rtf", headerStr);
+	for(var i = 0; i< len; i++)
+	{
+		// Write the data to stream with encoding to be utf8
+		var data = "\n " + jsonData.students[i].Id + "  |  " + jsonData.students[i].Firstname + "  |  " + jsonData.students[i].Lastname + "  |  " + jsonData.students[i].Score;
+		fs.appendFileSync('destination.rtf', data);	
+	}	
 }
-console.log("----------------------------------------------------------------");
 
-
-/*
-writing sorted object again to textfile i.e. destination.rtf
-*/
-console.log("Writing sorted JSON object to textfile...");
-console.log("----------------------------------------------------------------");
-fs.writeFileSync("destination.rtf", tempSTR);
-for(i = 0; i < len; i++)
+function printRTF()
 {
-	rtfData = fs.readFileSync("destination.rtf");
-	fs.writeFileSync("destination.rtf", rtfData + "\n" + jsonData.students[i].Id + "  |  " + jsonData.students[i].Firstname + "  |  " + jsonData.students[i].Lastname + "  |  " + jsonData.students[i].Score);
+	/*
+	Printing the final contents of file
+	*/
+	var finalRtfData = fs.readFileSync("destination.rtf");
+	console.log("\n" + finalRtfData);
 }
 
-/*
-Printing the final sorted contents of file
-*/
-finalRtfData = fs.readFileSync("destination.rtf");
-console.log("Now, text file contains sorted elements as follows : \n" + finalRtfData);
 
-console.log("----------------------------------------------------------------");
-console.log("Now, Converting the sorted JSON Object to XML : ");
-var stream = fs.createWriteStream("destination.xml");
-var arr;
-stream.once('open',function(fd){
-	var xml = js2xmlparser("students", jsonData);
-	stream.write(xml);
-	stream.end();
-});
+function sortJSON()
+{
+	/*
+	sorting the data
+	*/
+	var tempObj;
+	for(var i = 0; i < (len - 1); i++)
+	{
+		for(var j = (i+1); j < len; j++)
+		{
+			if(jsonData.students[i].Score < jsonData.students[j].Score)
+			{
+				// swapping the json object to sort in descending order
+				tempObj = jsonData.students[i];
+				jsonData.students[i] = jsonData.students[j];
+				jsonData.students[j] = tempObj;
+			}
+		}
+	}
+	// for(i = 0; i<len; i++)
+	// {
+	// 	console.log(jsonData.students[i].Id + " " + jsonData.students[i].Firstname + " " + jsonData.students[i].Lastname + " " + jsonData.students[i].Score);
+	// }
+}
 
-console.log("----------------------------------------------------------------");
-console.log("JSON object sucessfully converted to XML.");
-console.log("----------------------------------------------------------------");
+function convertJSON_TO_XML()
+{
+	var stream = fs.createWriteStream("destination.xml");
+	var arr;
+	stream.once('open',function(fd){
+		var xml = js2xmlparser("students", jsonData);
+		stream.write(xml);
+		stream.end();
+	});
+}
