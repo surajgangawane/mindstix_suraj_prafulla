@@ -19,32 +19,32 @@ var len = cont.mystudnt.length;
 var j=0;
 
 
-var stream = fs.createWriteStream("destination.txt");
-var arr=cont;
+var stream = fs.createWriteStream("destination2.txt");
+var arr;
 stream.once('open',function(fd){
 
 	stream.write("FirstName" + "|" + "LastName" + "|" + "Score" );
-
 	for(i=0;i<len;i++)
 	{
 		for(j=i+1;j<len;j++)
 		{
 			if(cont.mystudnt[i].Score < cont.mystudnt[j].Score)
 			{
-					arr.mystudnt[0] = cont.mystudnt[j];
-					cont.mystudnt[j] = cont.mystudnt[i];
-					cont.mystudnt[i] = arr.mystudnt[0];
-
-
-		 			
+					arr=cont.mystudnt[j];
+					cont.mystudnt[j]=cont.mystudnt[i];
+					cont.mystudnt[i]=arr;
 			}
 	    }
-	}
-	for(i=0;i<len;i++)
-	{
-					stream.write(cont.mystudnt[i].Firstname + "|" +
+	    stream.write(cont.mystudnt[i].Firstname + "|" +
 					cont.mystudnt[i].Lastname + "|" +
 					cont.mystudnt[i].Score);
+
 	}
+	// for(i=0;i<len;i++)
+	// {
+	// 				stream.write(cont.mystudnt[i].Firstname + "|" +
+	// 				cont.mystudnt[i].Lastname + "|" +
+	// 				cont.mystudnt[i].Score);
+	// }
 	stream.end();
 });
