@@ -1,0 +1,22 @@
+{
+  "mystudnt":[
+            {
+              "Id":1,
+              "Firstname":"Suraj",
+              "Lastname":"Gangawane",
+              "Score":545
+            },
+            {
+              "Id":2,
+              "Firstname":"Sourabh",
+              "Lastname":"Bodke",
+              "Score":555
+            },
+            {
+              "Id":3,
+              "Firstname":"Shubham",
+              "Lastname":"Ghodke",
+              "Score":565
+            }
+]
+}
