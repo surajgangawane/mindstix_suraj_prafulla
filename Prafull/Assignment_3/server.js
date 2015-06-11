@@ -4,6 +4,9 @@ var http = require("http");
 // importing file i/o module to access file read & write functionalities
 var fs = require("fs");
 
+var url = require("url");
+var path = require("path");
+
 // reading & parsing the json object stored in external file
 var config = JSON.parse(fs.readFileSync("config.json"));
 var host = config.host;
@@ -18,18 +21,39 @@ var server = http.createServer(function(request, response) {
 		{
 			// this code will get execute if user enters any bad filename
 			response.writeHead(404, {"Content-type":"text/plain"});
-			response.end("Sorry, Image not found.");
+			response.end("Sorry, Page not found.");
 		}
 		else
 		{
-			var img = fs.readFileSync('.' + request.url);
-		    response.writeHead(200, {'Content-Type': 'image/png' });
-		    response.end(img, 'binary');
-		    var f = request.url;
-			var f1 = f.replace('/', ''); // trying to remove initial '/' from the request.url, exists by default
-		    var file = fs.createReadStream(f1); // trying to provide the filename entered by user
-			var newFile = fs.createWriteStream("./Download/" + "new_" + f1); // providing new file name
-			file.pipe(newFile);
+			/*
+				originally the url consists filename with '/' by default in the beginning. e.g. '/logo.png'. We require only 'logo.png' to pass it
+				as a filename to createReadStream(). So, for that, we can use replace function which replaces '/' with nothing ('') and simply
+				pass the intended filename to the createReadStream().
+			*/
+
+			console.log("By default, filename : " + request.url); // this line proves the filename consists '/' by default in the beginning.
+			var filename = (request.url).replace('/',''); // replacing '/' with nothing to get the required filename
+
+			fs.exists(filename, function(exists){
+				if(exists){
+					var img = fs.readFileSync('./' + filename);
+				    response.writeHead(200, {'Content-Type': 'image/png' });
+				    response.end(img, 'binary');
+
+				    var file = fs.createReadStream(filename); // trying to provide the required filename entered by user
+					var newFile = fs.createWriteStream("./Download/" + "new_" + filename); // writing the file with new file name
+					file.pipe(newFile);
+					request.on('end', function(){
+						response.end("Image copied successfully.");
+					});
+				}
+				else
+				{
+					// if file doesn't exists
+					response.writeHead(400, {"Content-type":"text/plain"});
+					response.end("Sorry, Bad Request.");
+				}
+			});
 		}
 	});
 });
