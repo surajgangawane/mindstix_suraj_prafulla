@@ -4,9 +4,6 @@ var http = require("http");
 // importing file i/o module to access file read & write functionalities
 var fs = require("fs");
 
-var url = require("url");
-var path = require("path");
-
 // reading & parsing the json object stored in external file
 var config = JSON.parse(fs.readFileSync("config.json"));
 var host = config.host;
