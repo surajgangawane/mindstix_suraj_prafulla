@@ -1,0 +1,10 @@
+
+".container" : {
+  backgroundColor : 'black'
+},
+
+"#lblSuccess":{
+	color : 'white',
+	top : '150',
+	height : '30'
+}

@@ -1,0 +1,7 @@
+<Alloy>
+	<Window class="container">
+		<View layout="vertical">
+			<Label id="lblSuccess">You are successfully logged in.</Label>
+		</View>
+	</Window>
+</Alloy>
