@@ -1,0 +1,12 @@
+<Alloy>
+	<NavigationWindow id="navGroupWin">
+		<Window class="container">
+			<Label id="lblUsername">Username</Label>
+			<TextField id="txtUsername"></TextField>
+			<Label id="lblPassword">Password</Label>
+			<TextField id="txtPassword" passwordMask="true"></TextField>
+			<Button id="btnLogin" onClick="login">Login</Button>
+			<Button id="btnClear" onClick="clear">Clear</Button>
+		</Window>
+	</NavigationWindow>
+</Alloy>
