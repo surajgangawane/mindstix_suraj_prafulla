@@ -1,0 +1,18 @@
+".container": {
+	backgroundColor:'white',
+	height : Titanium.UI.FILL,
+	width : Ti.UI.Fill
+},
+
+"Label": {
+	width: Ti.UI.SIZE,
+	height: '30',
+	color: "red",
+	font: {
+		fontSize: 20
+	}
+},
+
+"#label": {
+	top : '100'
+}

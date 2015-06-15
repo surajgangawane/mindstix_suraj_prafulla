@@ -1,0 +1,7 @@
+<Alloy>
+	<View id="mainView" class="container">
+		<Label id="lblWidgetHead">This is widget 1.</Label>
+		<TextField id="txtUsername"></TextField>
+		<ImageView id="myImage"></ImageView>
+	</View>
+</Alloy>
