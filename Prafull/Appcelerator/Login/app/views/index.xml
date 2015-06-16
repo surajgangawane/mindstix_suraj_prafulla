@@ -1,0 +1,24 @@
+<Alloy>
+	<Window class="container">
+		<TableView>
+			<TableViewRow>
+				<Label id="lblUsername">Username</Label>
+			</TableViewRow>
+			<TableViewRow>
+				<TextField id="txtUsername"></TextField>
+			</TableViewRow>
+			<TableViewRow>
+				<Label id="lblPassword">Password</Label>
+			</TableViewRow>
+			<TableViewRow>
+				<TextField id="txtPassword" passwordMask="true"></TextField>
+			</TableViewRow>
+			<TableViewRow>
+				<Button id="btnLogin" onClick="login">Login</Button>
+			</TableViewRow>
+			<TableViewRow>
+				<Button id="btnClear" onClick="clear">Clear</Button>
+			</TableViewRow>
+		</TableView>
+	</Window>
+</Alloy>

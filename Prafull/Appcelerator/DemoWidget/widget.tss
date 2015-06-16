@@ -1,0 +1,22 @@
+".container" : {
+	top : '150'
+},
+
+"#lblWidgetHead" : {
+	top : '0',
+	textAlign : 'center'
+},
+
+"#txtUsername" : {
+	color : 'red',
+	height : '30',
+	width : '200',
+	borderWidth : '1',
+	top : '50'
+},
+
+"#myImage": {
+	height : '60',
+	width : '60',
+	top : '100'
+}
